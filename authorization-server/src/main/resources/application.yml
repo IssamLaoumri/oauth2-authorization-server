@@ -1,0 +1,9 @@
+logging:
+  level:
+    org:
+      springframework:
+        security:
+          nodeValue: TRACE
+          oauth2: TRACE
+server:
+  port: 9000
