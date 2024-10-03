@@ -1,9 +1,15 @@
-logging:
-  level:
-    org:
-      springframework:
-        security:
-          nodeValue: TRACE
-          oauth2: TRACE
+spring:
+  datasource:
+    username: root
+    password: Issam-laoumri1
+    url: jdbc:mysql://localhost:3306/pkce_demo_db?createDatabaseIfNotExist=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
 server:
   port: 9000
