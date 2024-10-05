@@ -1,7 +1,5 @@
 package com.github.authorizationserver.dto.requests;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.FetchType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
