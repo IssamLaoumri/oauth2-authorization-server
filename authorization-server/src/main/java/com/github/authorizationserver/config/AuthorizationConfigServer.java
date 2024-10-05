@@ -64,9 +64,9 @@ public class AuthorizationConfigServer {
     @Order(2)
     public SecurityFilterChain webSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/auth/**"))
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/auth/**", "/client/**"))
                 .authorizeHttpRequests(auth-> auth
-                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/auth/**", "/client/**").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults());
         return http.build();
@@ -84,27 +84,6 @@ public class AuthorizationConfigServer {
                 context.getClaims().claim("roles", roles).claim("username", authentication.getName());
             }
         };
-    }
-
-    @Bean
-    public RegisteredClientRepository registeredClientRepository(){
-        RegisteredClient client = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("client")
-                .clientSecret(passwordEncoder.encode("secret"))
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .redirectUri("https://oauthdebugger.com/debug")
-                .scope(OidcScopes.OPENID)
-                .clientSettings(clientSettings())
-                .build();
-        return new InMemoryRegisteredClientRepository(client);
-    }
-
-    @Bean
-    public ClientSettings clientSettings(){
-        return ClientSettings.builder().requireProofKey(true).build();
     }
 
     @Bean
